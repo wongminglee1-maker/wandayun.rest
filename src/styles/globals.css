@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cosmic-bg: #070B1B;
+  --cosmic-surface: #10152D;
+  --cosmic-card: #131C35;
+  --electric-cyan: #43DDE6;
+  --starlight-purple: #9674FF;
+  --starlight-yellow: #F7D675;
+  --doodle-white: #F4F1E8;
+  --muted-text: #B8C2D6;
+}
+
+body {
+  background-color: var(--cosmic-bg);
+  color: var(--doodle-white);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 手绘线稿与涂鸦质感辅助类 */
+.doodle-stroke {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* 手绘线描绘制动画 (SVG stroke-dashoffset) */
+@keyframes drawStroke {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.animate-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawStroke 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-draw-delayed {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawStroke 2.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+}
+
+.animate-draw-slow {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: drawStroke 3.5s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+}
+
+/* 宇宙星光微光微动 */
+@keyframes cosmicShimmer {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+}
+
+.animate-shimmer {
+  animation: cosmicShimmer 4s ease-in-out infinite;
+}
+
+/* 轨道微弱漂浮 */
+@keyframes orbitDrift {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-orbit-slow {
+  animation: orbitDrift 60s linear infinite;
+}
+
+/* 无障碍：减少动效模式 */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-draw, .animate-draw-delayed, .animate-draw-slow {
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+/* 手绘涂鸦卡片边框阴影 */
+.cosmic-card-shadow {
+  box-shadow: 0 4px 20px -2px rgba(7, 11, 27, 0.7), 0 0 1px 1px rgba(150, 116, 255, 0.15);
+}
+
+.cosmic-card-hover:hover {
+  box-shadow: 0 8px 30px -4px rgba(67, 221, 230, 0.2), 0 0 1px 1px rgba(67, 221, 230, 0.4);
+  transform: translateY(-2px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
